@@ -4,16 +4,3 @@ namespace: sample-dev
 
 resources:
   - ../../../base/kafka
-
-nameSuffix: -dev
-
-patches:
-  - target:
-      kind: KafkaNodePool
-    patch: |-
-      - op: replace
-        path: /metadata/labels/strimzi.io~1cluster
-        value: superapp-cluster-dev
-      - op: replace
-        path: /spec/storage/class
-        value: local-path
