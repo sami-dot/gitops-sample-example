@@ -13,6 +13,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-dev
+  ignoreDifferences:
+    - group: kafka.strimzi.io
+      kind: Kafka
+      jsonPointers:
+        - /spec/kafka/resources
   syncPolicy:
     automated:
       prune: true
