@@ -2,18 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bootstrap-root-app
-  namespace: openshift-gitops
+  namespace: default
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/abduselamh/gitops-sample-example.git
+    repoURL: https://github.com/sami-dot/gitops-sample-example
     targetRevision: HEAD
     path: argocd/apps
   destination:
     server: https://kubernetes.default.svc
-    namespace: openshift-gitops
+    namespace: default
   syncPolicy:
     automated:
       prune: true
