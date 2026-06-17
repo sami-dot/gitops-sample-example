@@ -9,6 +9,16 @@ spec:
   kafka:
     version: 4.2.0
     metadataVersion: 4.2-IV0
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 200m
+      limits:
+        memory: 1Gi
+        cpu: 500m
+    jvmOptions:
+      -Xms: 256m
+      -Xmx: 512m
     listeners:
       - name: plain
         port: 9092
@@ -20,14 +30,3 @@ spec:
       transaction.state.log.min.isr: 1
       default.replication.factor: 1
       min.insync.replicas: 1
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 200m
-      limits:
-        memory: 1Gi
-        cpu: 500m
-    jvmOptions:
-      -Xms: 256m
-      -Xmx: 512m
-  
