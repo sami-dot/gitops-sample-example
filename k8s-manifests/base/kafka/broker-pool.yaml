@@ -8,6 +8,16 @@ spec:
   replicas: 1
   roles:
     - broker
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 200m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+  jvmOptions:
+    -Xms: 256m
+    -Xmx: 512m
   storage:
     type: persistent-claim
     size: 1Gi
