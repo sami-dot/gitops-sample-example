@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "sample-app"
+        vault.hashicorp.com/agent-inject-secret-greeting: "secret/data/sample-app"
+        vault.hashicorp.com/agent-inject-template-greeting: |
+          {{- with secret "secret/data/sample-app" -}}
+          {{ .Data.data.greeting }}
+          {{- end }}
+        vault.hashicorp.com/agent-inject-secret-appName: "secret/data/sample-app"
+        vault.hashicorp.com/agent-inject-template-appName: |
+          {{- with secret "secret/data/sample-app" -}}
+          {{ .Data.data.appName }}
+          {{- end }}
+    spec:
+      serviceAccountName: sample-app
+      containers:
+        - name: sample-app
+          image: samidotnew/sample-app:latest
+          imagePullPolicy: Always

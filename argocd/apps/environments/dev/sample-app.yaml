@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-app-dev
+  namespace: default
+spec:
+  project: sample-project
+  sources:
+    - repoURL: https://github.com/sami-dot/gitops-sample-example
+      targetRevision: HEAD
+      path: k8s-manifests/overlays/dev/sample-app
+      kustomize: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sample-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
